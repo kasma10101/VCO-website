@@ -25,7 +25,7 @@ addUser = async(req, res, next) => {
         firstName: req.body.firstName, lastName: req.body.lastName,
         password: req.body.password1, email: req.body.email
     }
-        let errors = [];
+        let errors = []
       
         if (!newUser.firstName|| !newUser.email || !req.body.password1 || !req.body.password2) {
           errors.push({ msg: 'Please enter all fields' });
