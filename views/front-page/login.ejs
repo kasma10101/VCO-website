@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head'); %>
+  
+      
+<body>
+    <%- include('../partials/header'); %>
+    <div class="login-container">
+        <div class="login-card">
+            <h3>Login</h3>
+            <% if (typeof(errors) != undefined && errors.length > 0) {%>
+                <%errors.forEach(item => {%>
+                    <div class="error" onclick="this.hidden=true" style="width: 100%; display: flex; justify-content: space-between; margin-block-end: 10px; background-color: rgb(253, 194, 194); padding: 0.4rem 1rem; border-radius: 1rem; align-items: center;">
+                        <p style="margin-block: 0;"><%= item.msg %></p>
+                        <img src="/images/del.png" alt="delete" style="height: 28px;">
+                      </div>
+                    <%})%>
+                <%}%>
+            <% if (errors.success) {%>
+                        <div onclick="this.hidden=true" style="width: 100%; display: flex; justify-content: space-between; color: white; margin-block-end: 10px; background-color: rgb(88, 193, 132); padding: 0.4rem 1rem; border-radius: 1rem; align-items: center;">
+                            <p style="margin-block: 0;">Account created successfully!</p>
+                            <img src="/images/del.png" alt="delete" style="height: 28px;">
+                          </div>
+                    <%}%>
+             <% if (locals.error_msg != '') {%>
+                        <div onclick="this.hidden=true" style="width: 100%; display: flex; justify-content: space-between; color: white; margin-block-end: 10px; background-color: rgb(244, 155, 155); padding: 0.4rem 1rem; border-radius: 1rem; align-items: center;">
+                            <p style="margin-block: 0;"><%= locals.error_msg%></p>
+                            <img src="/images/del.png" alt="delete" style="height: 28px;">
+                          </div>
+            <%}%>
+            <form action="/login" method="post">
+                <input type="text" name="email" placeholder="Username" value="" required>
+                <input type="password" name="password" placeholder="Password" value="" required>
+                <button type="submit" value="">Login</button>
+            </form>
+            <p style="margin-top: 1rem; font-family: Poppins, sans-serif;">Be a member:  <a href="/signup">Create account</a></p>
+        </div>
+        
+    </div>
+    <%- include('../partials/footer'); %>
+</body>
+</html>

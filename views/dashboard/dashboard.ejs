@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head'); %>
+<body>
+    <%- include('./partials/header') %>
+    <section class="dashboard">
+        <%- include('./partials/nav') %>
+        <section class="third-nav dash-message">
+            <h3>My messages</h3>
+            <h5>From VCO to <span><%= locals.currentUser.firstName%></span></h5>
+            <section class="co">
+                <% if(messages.length > 0){%>
+                    <% messages.forEach(item => {%>
+                    <ul class="message-board">
+                        <li><%= item.message%></li>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                           <li class="m-date"><%=item.createdAt%></li>
+                           <% if (locals.currentUser.isAdmin){%>
+                              <form action="/deletemessage/<%=item._id%>?_method=DELETE" method="post">
+                                  <button type="submit" style="color: var(--green); border-color: var(--green); background-color: aliceblue;">Delete</button>
+                             </form>
+                            <%}%>  
+                        </div>
+                       
+                    </ul>
+                    <%})%>
+                
+                <%} else {%>
+                    <ul class="message-board">
+                        <li>You don't have messages</li>
+                    </ul>
+                    <%}%>
+            </section>
+            
+        </section>
+    </section>
+       <%- include('../partials/footer') %>
+</body>
+</html>

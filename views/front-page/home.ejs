@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <%- include('../partials/head'); %>
+  
+  <body>
+    <%- include('../partials/header'); %>
+    <section class="Section_top">
+      <h1 style="font-weight: 600;"> Vision Charity <br> Organization </h1><br>
+      <a href="#mission1" style="font-family: Poppins, sans-serif; color: white; background-color:var(--green) ; padding:.8rem 1rem ; font-size: 1.1rem; border-radius: .1rem; border: white; margin-top: 10rem !important; text-decoration: none;" >learn more</a>
+    </section> 
+    <section class="mission" data-aos="zoom-in" data-aos-duration="1500">
+      <h3>Welcome to Vision Charity, where we provide tuition-free kindergarten teaching services for visually impaired children and passionately advocate for the protection of their rights.</h3>
+      <p>"Empowering every visually impaired child at kindergarten age with access to exceptional educational resources is at the heart of our mission."</p>
+    </section>
+    <section id="works">
+      <section class="project-wrapper" data-aos="fade-up" data-aos-duration="1000">
+          <section class="project">
+              <h3 class="project-name">Send Real Gifts</h3>
+              <a href="/login" class="donate" style="background-color: var(--green); color: white; border: 0;">SUPPORT US</a>
+              <p class="project-description" style="color: rgb(69, 66, 58); font-family: Poppins, sans-serif;">
+                Every child deserves the gift of education. Your support can transform the lives of visually impaired children, providing them with the tools and resources they need to learn, grow, and succeed. Together, we can break down barriers and create a brighter future where every child, regardless of sight, has the opportunity to thrive. Your contribution will make a meaningful difference in these children's lives and help them build a better tomorrow. Join us in making education accessible to all.
+              </p>
+          </section>
+          <section class="project-img" id="mission1">
+              <img src="images/bl4.png" alt=""  class="pro-img">
+          </section>            
+      </section>
+      <section class="project-wrapper" data-aos="fade-up" data-aos-duration="1000" style=" gap: 2rem; flex-direction: row-reverse; flex-wrap: wrap;">
+        <section class="project" style="flex-wrap: wrap;">
+          <h3 style="font-family: Poppins; text-align: center;">
+          Message from the Organization
+          </h3>
+          <p class="project-description" style="color: rgb(69, 66, 58); font-family: Poppins, sans-serif;">
+            This organization was established by mothers having visually impaired children and working on the provision of tuition free quality kindergarten teaching service for the children in Ethiopia. It is the ever first of its kind kindergarten, teaching center. Since it has no sustainable and consistent source of income, it needs the collaboration and support from every one.  
+          </p> 
+        </section>
+        <section class="project-img">
+            <img src="images/photo_2024-01-10_17-34-33.jpg" alt="" class="pro-img">
+        </section>            
+    </section>
+      <section id="children" style="font-family: Poppins;" data-aos="fade-up" data-aos-duration="1000">
+        
+      </section>
+      <section class="project-wrapper" data-aos="fade-up" data-aos-duration="1000">
+        <section class="project">
+            <h3 class="project-name">CEO Message:</h3>
+            <p style="font-family: Poppins; font-size: 1rem; text-align: center;">
+              "It is an honour for me to be part of this astonishing educational service provision for blind children and vibrant team as a whole. Fully engaging on the service provision for these blind children can pay back us the joy and natural happiness. Regardless of the physical impairment, these children are very talented and gifted critical thinkers who will positively impact the country and the globe as well. I want to invite every to join us and be part of a team to expand the educational services provision and make it accessible to every visually impaired child who might be locked in his/her room due to his/her blindness."    
+             </p> 
+            
+        </section>
+        <section class="project-img" id="article" >
+            <img src="images/photo_2024-01-10_09-41-41.jpg" alt="" class="pro-img" style="width: 50%; box-shadow: none;" >
+        </section>            
+    </section>
+    <section class="m-article"data-aos="fade-up" data-aos-duration="1500">
+      
+      <section class="article">
+        <section>
+         <p style="font-size: 1.02rem;">OUR RECENT NEWS</p> 
+         <h3>Latest News & Articles</h3>   
+        </section>
+        <a href="#article" class="donate" >view here<img src="/images/down-arrow.png" alt=""></a>
+      </section>
+      
+      <section class="ads">
+        
+        <%if (news.length > 0){%>
+          <%news.forEach(item => {%>
+            <a href="<%=item.link%>" target="_blank">
+              <section class="member">
+                <img src="<%=item.image%>" alt="" style="width: 286px; height: 180px;">
+                <a href="http://<%=item.link%>" style="color: rgb(58, 54, 54); font-weight: 500;"><%=item.text%></a>
+            </section>
+          <%})%>
+        <%}%>
+        </section>
+        </a>
+      </section>  
+    </section>
+  </section>
+  
+    
+  </section>
+    <%- include('../partials/footer'); %>
+  </body>
+</html>
