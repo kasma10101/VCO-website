@@ -1,6 +1,6 @@
-import { Staff } from "../model/Staff.js";
+const { default: Staff } = require("../model/Staff.js");
 
-export const createStaff = async (req,res)=>{
+ const createStaff = async (req,res)=>{
     const {
         name,
         image,
@@ -34,7 +34,7 @@ const staff = new Staff (updateData)
 
 
 
-export const updateStaff = async(req,res,next) =>{
+ const updateStaff = async(req,res,next) =>{
 
     const {   
         image,
@@ -63,7 +63,7 @@ return res.status(200).json({message:"updated Staff",staff})
     }
 }
 
-export const allStaff = async(req,res) =>{
+ const allStaff = async(req,res) =>{
     let staff;
     try {
        staff = await Staff.find()
@@ -77,7 +77,7 @@ export const allStaff = async(req,res) =>{
 }
 
 
-export const deleteStaff = async(req,res) =>{
+ const deleteStaff = async(req,res) =>{
     const id = req.params.id 
     try {
         const deleted = await Staff.findByIdAndDelete(id);
@@ -90,3 +90,5 @@ export const deleteStaff = async(req,res) =>{
         return res.status(500).json(error)
     }
 }
+
+module.exports = {deleteStaff,allStaff,updateStaff,createStaff}
