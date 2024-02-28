@@ -1,5 +1,8 @@
 const  Staff  = require("../model/Staff.js");
 
+const displayStaff = async(req,res) => {
+     res.render('dashboard/create-staff')
+}
  const createStaff = async (req,res)=>{
     const {
         name,
@@ -89,4 +92,4 @@ return res.status(200).json({message:"updated Staff",staff})
     }
 }
 
-module.exports = {deleteStaff,allStaff,updateStaff,createStaff}
+module.exports = {deleteStaff,allStaff,updateStaff,displayStaff,createStaff}
