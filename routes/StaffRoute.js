@@ -9,8 +9,8 @@ const StaffRoute = express.Router();
 
  StaffRoute.post('/create-staff',createStaff);
 StaffRoute.get('/all-staff',allStaff);
-StaffRoute.post('/update-staff',updateStaff);
-StaffRoute.delete('delete-staff',deleteStaff);
+StaffRoute.post('/update-staff/:id',updateStaff);
+StaffRoute.delete('/delete-staff/:id',deleteStaff);
 
 
 module.exports = StaffRoute;

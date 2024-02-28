@@ -1,4 +1,4 @@
-const { default: Staff } = require("../model/Staff.js");
+const  Staff  = require("../model/Staff.js");
 
  const createStaff = async (req,res)=>{
     const {
@@ -30,10 +30,6 @@ const staff = new Staff (updateData)
     }
 }
 
-
-
-
-
  const updateStaff = async(req,res,next) =>{
 
     const {   
@@ -52,6 +48,8 @@ const staff = new Staff (updateData)
         if (req.file) {
             updateData.image = req.file.filename;
         }
+        console.log(updateData,'here is staff')
+
     const staff = await Staff.findByIdAndUpdate(id,updateData,{new:true})    
     if(!staff){
      return res.status(500).json({message:"error while saving"});

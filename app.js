@@ -13,6 +13,7 @@ const methodOverride = require('method-override')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const  StaffRoute  = require('./routes/StaffRoute');
+const BlogRoute = require('./routes/BlogRoute');
 
 
 
@@ -85,6 +86,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/', usersRouter);
 app.use('/staff',StaffRoute)
+app.use('/blog',BlogRoute)
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
