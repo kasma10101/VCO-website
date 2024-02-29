@@ -4,9 +4,9 @@
         <% if (locals.currentUser.isAdmin){%>
             <li><a href="/sendmessage">Send Message</a></li>
             <li><a href="/dashboard/sendUpdate">Send News</a></li>
-            <li><a href="/dashboard/createStaff">Staff</a></li>
+            <li><a href="/staff/all-staff">Staff</a></li>
             <%} else {%> 
-           <li><a href="/dashboard">Message</a></li>
+           <li style="margin-top: 10px; white-space: nowrap;" ><a href="/dashboard">Message</a></li>
            <%}%>
             <li><a href="/dashboard/profile">Profile</a></li>
             <li><a href="/dashboard/donate">Donate</a></li> 

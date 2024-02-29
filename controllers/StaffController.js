@@ -9,27 +9,27 @@ const displayStaff = async(req,res) => {
         image,
         role,
     } = req.body;
-    console.log(req.body.name)
     if(!name || !role){
        return res.status(500).json({message:"please provide all information"})
     }
     try {
         const updateData = {
             name: name,
-            role:role
+            role: role
         };
         
         if (req.file) {
             updateData.image = req.file.filename;
         }
-        console.log(updateData)
+  
+         console.log(req.file.filename,'imge')
 const staff = new Staff (updateData)
         const savedStaff = await staff.save();
 
         if (!savedStaff) {
             return res.redirect('dashboard/createStaff');
           }
-          return res.status(201).json({message:'created',savedStaff});
+          return res.redirect('/staff/all-staff');
       
 
     } catch (error) {
@@ -37,6 +37,15 @@ const staff = new Staff (updateData)
     }
 }
 
+ const update =  async (req, res) => {
+    try {
+        const id = req.params.id;
+        const value = await Staff.findById(id);
+        res.render('dashboard/createStaff', { value});
+    } catch (error) {
+        res.status(500).send('Error: ' + error.message);
+    }
+};
  const updateStaff = async(req,res,next) =>{
 
     const {   
@@ -87,13 +96,13 @@ return res.redirect('dashboard/Staff')
     try {
         const deleted = await Staff.findByIdAndDelete(id);
         if(!deleted){
-            return res.json({message:"Staff  doesn't exist"})
+            return res.redirect('/staff/all-staff');
         }
             
- return res.status(200).json({message:"Staff deleted"})
+        return res.redirect('/staff/all-staff');
     } catch (error) {
         return res.status(500).json(error)
     }
 }
 
-module.exports = {deleteStaff,allStaff,updateStaff,displayStaff,createStaff}
+module.exports = {deleteStaff,allStaff,update,updateStaff,displayStaff,createStaff}
