@@ -1,7 +1,7 @@
 const  Staff  = require("../model/Staff.js");
 
 const displayStaff = async(req,res) => {
-     res.render('dashboard/create-staff')
+    return res.render('/dashboard/createStaff')
 }
  const createStaff = async (req,res)=>{
     const {
@@ -9,7 +9,10 @@ const displayStaff = async(req,res) => {
         image,
         role,
     } = req.body;
-    
+    console.log(req.body.name)
+    if(!name || !role){
+       return res.status(500).json({message:"please provide all information"})
+    }
     try {
         const updateData = {
             name: name,
@@ -19,13 +22,14 @@ const displayStaff = async(req,res) => {
         if (req.file) {
             updateData.image = req.file.filename;
         }
+        console.log(updateData)
 const staff = new Staff (updateData)
         const savedStaff = await staff.save();
 
         if (!savedStaff) {
-            return res.status(500).json(' cannot be created');
+            return res.redirect('dashboard/createStaff');
           }
-          return res.status(201).json(' created');
+          return res.status(201).json({message:'created',savedStaff});
       
 
     } catch (error) {
@@ -58,23 +62,23 @@ const staff = new Staff (updateData)
      return res.status(500).json({message:"error while saving"});
     }
 
-return res.status(200).json({message:"updated Staff",staff})
+return res.redirect('dashboard/Staff')
 } catch (error) {
         return res.status(500).json({message:error.message})
     }
 }
 
  const allStaff = async(req,res) =>{
-    let staff;
+    let staffs;
     try {
-       staff = await Staff.find()
+       staffs = await Staff.find()
     } catch (error) {
         return res.status(500).json({message:"server error"})
     }
-    if(!staff){
+    if(!staffs){
         return res.status(404).json({message:"no Staff"})
     }
-    return res.status(200).json(staff);
+    return res.render('dashboard/Staff',{staffs});
 }
 
 

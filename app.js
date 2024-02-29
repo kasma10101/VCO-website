@@ -9,6 +9,7 @@ const session = require('express-session');
 const rateLimit = require('express-rate-limit')
 const mongoose = require('mongoose')
 const methodOverride = require('method-override')
+const multer = require('multer')
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -81,17 +82,30 @@ app.use((req, res, next) => {
   res.locals.thanks = req.flash('thanks') || '';
   next();
 });
-
+//image middleware
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/'); // The folder where uploaded images will be stored
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)); // Rename the image file
+  }
+});
+// Create the Multer instance
+const upload = multer({ storage: storage });
 // routes 
 app.use('/', indexRouter);
 app.use('/', usersRouter);
-app.use('/staff',StaffRoute)
+app.use('/staff',upload.single('image'),StaffRoute)
 app.use('/blog',BlogRoute)
+app.get('/dashboard/createStaff',  async(req, res, next) => {
+  res.render('dashboard/createStaff',{value:''})
+})
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  console.log(err)
-  res.render('404')  
-});
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   console.log(err)
+//   res.render('404')  
+// });
 
 module.exports = app;

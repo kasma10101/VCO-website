@@ -36,9 +36,8 @@ router.get('/dashboard', authenticate.ensureAuthenticated, userController.getMes
 router.get('/dashboard/profile', authenticate.ensureAuthenticated, async(req, res, next) => {
   res.render('dashboard/profile')
 })
-router.get('/dashboard/create-staff', authenticate.ensureAuthenticated, async(req, res, next) => {
-  res.render('dashboard/create-staff')
-})
+
+
 router.get('/dashboard/sendUpdate', authenticate.ensureAuthenticated, async(req, res, next) => {
   res.render('dashboard/sendNews')
 })
@@ -81,3 +80,4 @@ router.delete('/deletemessage/:_id',authenticate.ensureAuthenticated, userContro
 router.post('/sendmessage',authenticate.ensureAuthenticated, userController.sendMessage, userController.alertEmail)
 
 module.exports = router;
+
