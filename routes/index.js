@@ -16,9 +16,9 @@ router.get('/login', (req, res, next) => {
 router.get('/signup', (req, res, next) => {
   res.render('front-page/sign-up', { errors: {} })
 })
-router.get('/staff', async (req, res, next) => {
-  res.render('front-page/staff');
-})
+// router.get('/staff', async (req, res, next) => {
+//   res.render('front-page/staff');
+// })
 router.get('/about-us', async (req, res, next) => {
   res.render('front-page/aboutUs');
 })

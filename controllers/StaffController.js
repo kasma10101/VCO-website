@@ -105,4 +105,19 @@ return res.redirect('dashboard/Staff')
     }
 }
 
-module.exports = {deleteStaff,allStaff,update,updateStaff,displayStaff,createStaff}
+const index = async(req,res) =>{
+    let staffs;
+    try {
+       staffs = await Staff.find()
+       if(!staffs){
+        return res.status(404).json({message:"no Staff"})
+    }
+       return res.render('front-page/staff',{staffs});
+
+    } catch (error) {
+        return res.status(500).json({message:"server error"})
+    }
+    
+}
+
+module.exports = {deleteStaff,allStaff,update,index,updateStaff,displayStaff,createStaff}
