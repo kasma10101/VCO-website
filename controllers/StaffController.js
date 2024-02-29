@@ -71,7 +71,7 @@ const staff = new Staff (updateData)
      return res.status(500).json({message:"error while saving"});
     }
 
-return res.redirect('dashboard/Staff')
+return res.redirect('/staff/all-staff')
 } catch (error) {
         return res.status(500).json({message:error.message})
     }

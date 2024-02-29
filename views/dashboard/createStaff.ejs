@@ -4,8 +4,8 @@
 <body>
     <%- include('./partials/header') %>
     <div class="flex w-full">
-        <%- include('./partials/nav') %>
-    <form class="max-w-sm mx-auto w-full" method="post" action="/staff/create-staff" enctype="multipart/form-data">
+        <%- include('./partials/nav') %> 
+    <form class="max-w-sm mx-auto w-full" method="post" action="<%= value ? '/staff/update-staff/' + value._id : '/staff/create-staff' %>"  enctype="multipart/form-data">
         <div class="mb-2 mt-2">
             <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 <%= value ? 'Update' : 'Create' %> Staff
