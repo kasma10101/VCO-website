@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const BlogSchema = new mongoose.Schema({
-    title:{
+    text:{
         type:String
     },
-    content:{
+    link:{
         type:String
     },
     image:{

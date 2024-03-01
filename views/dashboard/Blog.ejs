@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head'); %>
+<body>
+    <%- include('./partials/header') %>
+    
+<div class="flex  relative overflow-x-auto w-full h-full">
+    <%- include('./partials/nav') %>
+    <table class="w-[90%] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Content
+
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Link
+                 </th>
+                <th scope="col" class="px-6 py-3">
+                    Image
+                </th>
+            
+                <th scope="col" class="px-6 py-3">
+                    Actions
+                </th>
+                  <th  scope="col" class="">
+                    <form action="/blog/display-blog" style="margin-bottom: 40px; width: 70%;" >
+                        <button type="submit" class="w-full text-white bg-[#5252F3] mt-5 text-[19px]  hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Add</button>
+                     </form>
+                 </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% blogs.forEach(blog => { %>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td class="px-6 max-w-sm wrap py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <p class="overflow-hidden text-ellipsis break-words"><%= blog.text %></p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <%= blog.link %>
+                    </td>
+                    <td class="px-6 py-4">
+                        <img src="http://localhost:4000/uploads/<%= blog.image %>" alt="" class="w-20">
+                    </td>
+                    
+                    <td class="px-6 py-4">
+                        <form action="/blog/display-edit/<%= blog.id %>" class="inline" method="get">
+                            <button type="submit">
+                                <i class="fas fa-edit"></i>
+                             </button>
+                            </form>
+                            <form action="/blog/delete-blog/<%= blog.id %>?_method=delete" class="inline" method="post">
+                                <input type="hidden" name="_method" blog="delete">
+                                <button type="submit">
+                                    <i class="fas fa-trash m-3"></i>
+                                 </button>
+                            </form>                  
+                          </td>
+                   
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../partials/footer') %>
+</body>
+</html>

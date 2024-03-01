@@ -1,48 +1,61 @@
 const  Blog  = require("../model/Blog.js");
 
+const displayBlog = async(req,res) => {
+    return res.render('dashboard/createBlog',{value:''})
+}
  const createBlog = async (req,res)=>{
     const {
-        title,
+        link,
         image,
-        content,
+        text,
     } = req.body;
     
     try {
         const updateData = {
-            title: title,
-            content:content
+            link: link,
+            text:text
         };
         
         if (req.file) {
             updateData.image = req.file.filename;
         }
-const blog = new Blog (updateData)
+        console.log(updateData,'here in the creating')
+        const blog = new Blog (updateData)
         const savedBlog = await blog.save();
 
         if (!savedBlog) {
             return res.status(500).json(' cannot be created');
           }
-          return res.status(201).json(' created');
+          return res.redirect('/blog/all-blog');
       
 
     } catch (error) {
         console.log(error)
     }
 }
+const update =  async (req, res) => {
+    try {
+        const id = req.params.id;
+        const value = await Blog.findById(id);
+        res.render('dashboard/createBlog', { value});
+    } catch (error) {
+        res.status(500).send('Error: ' + error.message);
+    }
+};
 
  const updateBlog = async(req,res,next) =>{
 
     const {   
         image,
-       content,
-        title,
+       text,
+        link,
     } = req.body;
     const {id} = req.params;
       
     try {
         const updateData = {
-           content:content,
-            title:title,
+           text:text,
+            link:link,
         };
         
         if (req.file) {
@@ -55,23 +68,23 @@ const blog = new Blog (updateData)
      return res.status(500).json({message:"error while saving"});
     }
 
-return res.status(200).json({message:"updated Blog",blog})
+return res.redirect('/blog/all-blog')
 } catch (error) {
         return res.status(500).json({message:error.message})
     }
 }
 
  const allBlog = async(req,res) =>{
-    let blog;
+    let blogs;
     try {
-       blog = await Blog.find()
+       blogs = await Blog.find()
     } catch (error) {
         return res.status(500).json({message:"server error"})
     }
-    if(!blog){
+    if(!blogs){
         return res.status(404).json({message:"no Blog"})
     }
-    return res.status(200).json(blog);
+    return res.render('dashboard/Blog',{blogs});
 }
 
 
@@ -83,10 +96,10 @@ return res.status(200).json({message:"updated Blog",blog})
             return res.json({message:"Blog  doesn't exist"})
         }
             
- return res.status(200).json({message:"Blog deleted"})
+ return res.redirect('/blog/all-blog')
     } catch (error) {
         return res.status(500).json(error)
     }
 }
 
-module.exports = {deleteBlog,allBlog,updateBlog,createBlog}
+module.exports = {deleteBlog,displayBlog,update,allBlog,updateBlog,createBlog}

@@ -69,7 +69,7 @@
           <%news.forEach(item => {%>
             <a href="<%=item.link%>" target="_blank">
               <section class="member">
-                <img src="<%=item.image%>" alt="" style="width: 286px; height: 180px;">
+                <img src="http://localhost:4000/uploads/<%= item.image %>" alt="" style="width: 286px; height: 180px;">
                 <a href="http://<%=item.link%>" style="color: rgb(58, 54, 54); font-weight: 500;"><%=item.text%></a>
             </section>
           <%})%>

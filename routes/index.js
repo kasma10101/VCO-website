@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const News = require('../model/newsModel')
+const Blog = require('../model/Blog')
 
 /* GET home page. */
 router.get('/', async function(req, res, next) {
-  const data = await News.find({})
+  const data = await Blog.find({})
     
   res.render('front-page/home', {
     news: data, 
