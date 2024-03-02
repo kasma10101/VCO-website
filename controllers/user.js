@@ -1,7 +1,7 @@
 const User = require('../model/user');
 const Subscriber = require('../model/subModel');
 const Message = require('../model/messageModel');
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 const moment = require('moment');
 const nodemailer = require("nodemailer");
 const { trusted } = require('mongoose');
