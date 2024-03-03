@@ -56,28 +56,15 @@ router.post('/login', passport.authenticate('local', {successRedirect: '/dashboa
       next(err)
     }
 });
-// router.post('/login', function(req, res, next) {
-//   passport.authenticate('local', function(err, user, info) {
-//     if (err) {
-//       return next(err); // will generate a 500 error
-//     }
-//     // Generate a JSON response reflecting authentication status
-//     if (! user) {
-//        res.redirect('/login')
-//     }
-//     req.login(user, function(err){
-//       if(err){
-//         return next(err);
-//       }
-//       res.redirect('/dashboard')      
-//     });
-//   })(req, res, next);
-// });
+
 router.post('/logout',authenticate.ensureAuthenticated, userController.logOut) 
 // message controller
 // router.post('/sendupdate',authenticate.ensureAuthenticated, userController.sendNews)
 router.delete('/deletemessage/:_id',authenticate.ensureAuthenticated, userController.deleteMessage)
 router.post('/sendmessage',authenticate.ensureAuthenticated, userController.sendMessage, userController.alertEmail)
-
+router.get('/forgot-password')
+router.post('/forgot-password')
+router.get('/reset-password')
+router.post('/reset-password')
 module.exports = router;
 
