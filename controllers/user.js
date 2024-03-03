@@ -262,7 +262,10 @@ deleteMessage = async (req, res, next) => {
   
 }
 
-
+const presentForgot = async(req,res) =>{
+     
+  return res.render('front-page/forgot-password ')
+}
 module.exports = {
-    addUser, logOut, updateUser, sendMessage,getMessage, alertEmail, donatePlan, addSub, sendNews, deleteMessage
+    addUser, logOut, updateUser,presentForgot, sendMessage,getMessage, alertEmail, donatePlan, addSub, sendNews, deleteMessage
 }

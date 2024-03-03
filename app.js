@@ -102,10 +102,10 @@ app.get('/dashboard/createStaff',  async(req, res, next) => {
   res.render('dashboard/createStaff',{value:''})
 })
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  console.log(err)
-  res.render('404')  
-});
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   console.log(err)
+//   res.render('404')  
+// });
 
 module.exports = app;

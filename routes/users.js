@@ -6,6 +6,9 @@ const authenticate = require('../config/auth')
 const multer  = require('multer');
 const path = require('path');
 const News = require('../model/newsModel');
+const User = require('../model/user');
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -62,9 +65,81 @@ router.post('/logout',authenticate.ensureAuthenticated, userController.logOut)
 // router.post('/sendupdate',authenticate.ensureAuthenticated, userController.sendNews)
 router.delete('/deletemessage/:_id',authenticate.ensureAuthenticated, userController.deleteMessage)
 router.post('/sendmessage',authenticate.ensureAuthenticated, userController.sendMessage, userController.alertEmail)
-router.get('/forgot-password')
-router.post('/forgot-password')
-router.get('/reset-password')
+router.get('/forgot-password',async(req,res) =>{
+  return res.render('front-page/forgot-password')
+})
+const JWT = 'some_secret'
+router.post('/forgot-password',async(req,res) =>{
+  const {email} = req.body;
+   let error = []
+  
+   try {
+    const user = await User.findOne({email})
+    if(email !== user.email){
+      error.push({msg:"email not registered"})
+      return res.status(404).json({message:'no user found'});
+    }
+
+    const secret = JWT  + user.password
+    const payload = {
+      email:user.email,
+      id:user.id
+    }
+    const token = jwt.sign(payload,secret,{expiresIn:'30m'})
+
+    const link = `http://localhost:4000/reset-password/${user.id}/${token}`
+    //send email 
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+         user: "fayomuhe5@gmail.com",
+         pass: "vypd cqxp eqqm krsg",
+         port: 465,
+         secure: true,
+      }
+   });
+   const mailOptions = {
+      from:'fayomuhe5@gmail.com',
+      to: email,
+      subject: "VCO charity Org.",
+      html: `<p>Password Reset</p>
+             <p>Please follow this link to reset your password!</p>
+             <a href=${link}>Reset!</a>
+             `
+   };
+   
+    transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+         console.log(error);
+      }else{
+         console.log("Email sent: " + info.response);
+      }
+   });
+   return res.send('message sent successfully ')
+   } catch (error) {
+    return res.send(error)
+   }
+})
+router.get('/reset-password/:id/:token', async (req, res) => {
+  const {token,id} = req.params  
+  let user,error = [] 
+
+   try {
+     user = await User.findById(id)
+      console.log(user)
+      if(!user) error.push({message:'something went wrong'})
+      return
+   } catch (error) {
+      return res.send(error)
+   }
+
+
+    if(id !== user){
+
+    }
+  return
+});
+
 router.post('/reset-password')
 module.exports = router;
 
