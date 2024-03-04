@@ -141,7 +141,7 @@ updateUser = async (req, res, next) => {
           });
             }         
       } else {
-        res.send('User not updated')
+        res.send({message:'User not updated'})
       }
     });
   }
