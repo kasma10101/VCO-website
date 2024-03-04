@@ -117,7 +117,8 @@ router.post(
   userController.alertEmail
 );
 router.get("/forgot-password", async (req, res) => {
-  return res.render("front-page/forgot-password");
+ const error = ''
+  return res.render("front-page/forgot-password",{error});
 });
 const JWT = "some_secret";
 router.post("/forgot-password", async (req, res) => {
@@ -177,19 +178,21 @@ router.get("/reset-password/:id/:token", async (req, res) => {
   const { token, id } = req.params;
   let user,
     error = [];
-
+ console.log(' here is id')
   try {
     user = await User.findById(id);
     if (!user) {
-      error.push({ message: "something went wrong" });
-      return res.send({message:"user not found"});
+      error.push({ msg: "something went wrong" });
+      return res.render('front-page/forgot-password',{error});
     }
 
     const secret = JWT + user.password;
     const payload = jwt.verify(token, secret);
     return res.render("front-page/reset-password", { token: token, id: id });
   } catch (error) {
-    return res.send({message:error});
+    error.push({msg:error.messaage})
+    return res.render('front-page/forgot-password',{error});
+
   }
 });
 
@@ -202,27 +205,27 @@ router.post("/reset-password/:id/:token", async (req, res) => {
   try {
     user = await User.findById(id);
     if (!user) {
-      error.push({ message: "user not found" });
-      return res.send({message:"user not found"});
+      error.push({ msg: "user not found" });
+      return res.render("front-page/reset-password",{error});
     }
 
     const secret = JWT + user.password;
     const payload = jwt.verify(token, secret);
     if (password !== password2) {
-      error.push({ message: "password do not match" });
-      return res.send({message:"password do not match"});
+      error.push({ msg: "password do not match" });
+      return res.render("front-page/reset-password",{error});
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     user.password = hashedPassword;
     const saved =  await user.save();
      if(!saved){
-       error.push({message:"something went wrong"})
+       error.push({msg:"something went wrong"})
 
-       return res.render('front-page/reset-password',{message:error})
-     }
-     
-    return res.redirect('/login');
+       return res.render("front-page/reset-password",{error});
+      }
+      error.push({msg:'Your password reseted successfully!'})
+    return res.redirect('/login',{error});
   } catch (error) {
     return res.send({message:error});
   }
