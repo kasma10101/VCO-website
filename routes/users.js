@@ -188,7 +188,8 @@ router.get("/reset-password/:id/:token", async (req, res) => {
 
     const secret = JWT + user.password;
     const payload = jwt.verify(token, secret);
-    return res.render("front-page/reset-password", { token: token, id: id });
+    error = ''
+    return res.render("front-page/reset-password", { token: token, id: id,error:error});
   } catch (error) {
     error.push({msg:error.messaage})
     return res.render('front-page/forgot-password',{error});
@@ -225,7 +226,7 @@ router.post("/reset-password/:id/:token", async (req, res) => {
        return res.render("front-page/reset-password",{error});
       }
       error.push({msg:'Your password reseted successfully!'})
-    return res.redirect('/login',{error});
+    return res.render('front-page/login',{errors:error});
   } catch (error) {
     return res.send({message:error});
   }
